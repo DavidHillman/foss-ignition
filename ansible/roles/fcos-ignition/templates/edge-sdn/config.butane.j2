@@ -1,1 +1,25 @@
-
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - {{ ssh_pub_key }}
+      groups:
+        - wheel
+storage:
+  directories:
+    - path: /var/home/core/ovs
+    - path: /var/home/core/ovs/log
+    - path: /var/home/core/ovs/var/lib/openvswitch/pki
+    - path: /var/home/core/ovs/var/run/openvswitch
+    - path: /var/home/core/etc/openvswitch
+    - path: /var/datavolumes
+    - path: /var/home/core/bin
+      overwrite: true
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: {{ system_hostname }}
